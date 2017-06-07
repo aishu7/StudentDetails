@@ -1,0 +1,35 @@
+<div align="center">
+    <h1> Student Details </h1>
+</div><br>
+
+<form method="POST" action="update_data">
+
+
+    First Name : <input type="text" pattern="[A-Za-z]{1,30}" title="Please Enter only alphabets for First Name" placeholder="Enter First Name" name="first_name"  value="[% result.first_name %]" contenteditable="true" required/><br><br> 
+
+    Last Name  : <input type="text" pattern="[A-za-z]{1,30}" title="Please Enter only alphabets for Last Name" placeholder="Enter Last Name"   name="last_name"   value="[% result.last_name %]" contenteditable="true" required/><br><br> 
+      
+[% IF  result.gender  == 'male' %] 
+    Gender : <input type="radio" name="gender" value="male" checked> Male
+             <input type="radio" name="gender" value="female" > Female <br><br>
+       [% ELSIF  result.gender  == 'female' %]
+             <input type="radio" name="gender" value="male"> Male
+             <input type="radio" name="gender" value="female" checked> Female <br><br> 
+    [% END %]
+
+    Date Of Birth : <input type="text" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]){1,2}[-\/]{0,1}(0[1-9]|1[012]){1,2}[-\/]{0,1}[0-9]{4}" title="Please Enter Valid Date of Birth With formats of DD/MM/YYYY or DD-MM-YYYY or DDMMYYYY" placeholder="DD/MM/YYYY" name="dob"   value="[% result.dob %]" contenteditable="true" required/> <br><br> 
+
+    Contact Number : <input type="text" pattern="\d{12}" title="Please Enter 12 digit Contact Number with Country Code" placeholder="Enter Contact Number" size="10" name="num"  value="[% result.contact_num %]" contenteditable="true" required/> <br><br> 
+
+    Address : <input type="text" pattern="[A-za-z0-9-\,]{1,30}" placeholder="Enter Address" name="address"  value="[% result.address %]" contenteditable="true" required /><br><br> 
+
+    Course : <input type="text" pattern="[A-Za-z]{1,40}" placeholder="Enter Course" name="course"  value="[% result.course %]" contenteditable="true" required /><br><br>
+
+
+    <input type ="hidden" value="[% result.id %]" name="id"/>
+       <input type="submit" name="save" value="Save" />
+
+
+    <input type="submit" name="cancel" formnovalidate="cancel" value="Cancel" /><br><br>
+
+</form>

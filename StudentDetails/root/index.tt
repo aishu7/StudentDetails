@@ -1,0 +1,12 @@
+<form method="POST" action="manage_data">
+    <input type="submit" name="add" value="ADD STUDENT" /> <br>
+    <input type="submit" name="show" value="SHOW STUDENT" /> <br>
+    <input type="submit" name="display_all" value="DISPLAY ALL STUDENT" /> <br>
+</form>
+
+[% IF button_click == "save" %] 
+Your data is added 
+
+[% ELSIF button_click == "cancel" %] 
+Your data is not added 
+[% END %]
