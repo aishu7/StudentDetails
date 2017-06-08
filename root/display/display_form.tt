@@ -1,5 +1,8 @@
 <form method="POST" action="display_data">
     Enter FIRST NAME <br>
     <input type="text" pattern="[A-Za-z]{1,10}" title="Please specify the student name which is already registered" name="first_name" required/>
-    <input type="submit" value="Show Details" />
+<input type="submit" value="Show Details" />
 </form>
+
+   
+

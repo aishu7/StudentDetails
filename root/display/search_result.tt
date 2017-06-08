@@ -34,7 +34,7 @@
             <td> [% student.contact_num %]</td>
             <td> [% student.address %]</td>
             <td> [% student.course %]</td>
-            <input type="hidden" value="[% student.first_name %]" name="first_name"/>
+            <input type="hidden" value="[% first_name %]" name="first_name"/>
             <td> <button name="delete" type="submit" value=[% student.id %]>Delete</button> </td>
             
             <td> <button name="update" type=submit" value=[% student.id %] formaction="select_row">Edit</button></td>
@@ -43,7 +43,7 @@
 
         [% END %]
     </table>
-    <form method="POST" action="redirect_home_page">
+    <form method="POST" action="/manage/redirect_home_page">
         <input type="submit" name="back" value="Back" />
     </form>
  
