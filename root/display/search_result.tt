@@ -43,9 +43,16 @@
 
         [% END %]
     </table>
-    <form method="POST" action="/manage/redirect_home_page">
-        <input type="submit" name="back" value="Back" />
-    </form>
+
+    <button onclick = "redirectHomepage()"> BACK </button>
+<script>
+
+   function redirectHomepage()
+   {
+   document.location='redirect_home_page';
+   }
+</script>
+   
  
     
 </body>

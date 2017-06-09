@@ -32,44 +32,58 @@ Desc   : index helps store the index page and pass it between view and controlle
 
 sub index : Local {
 
-    my ( $self, $c, $save_or_cancel ) = @_;
+    my ( $self, $c ) = @_;
 
     $c->stash( template => 'index.tt' );
 
-    if ( $save_or_cancel == 1 ) {
-        $c->stash( button_click => 'save' );
-    }
-
-    elsif ( $save_or_cancel == 2 ) {
-        $c->stash( button_click => 'cancel' );
-    }
-
 }
 
-=item manage_data
+=item student_form
 
 Params : NONE
 
 Returns : NONE
 
-Desc : manage_data stores the add_details and display_form page and pass it between view and controller corresponding to the button action
+Desc : student_form is to display the form for the students to enter details
 
 =cut
 
-sub manage_data : Local {
+sub student_form : Local {
     my ( $self, $c ) = @_;
-    if ( $c->req->method() eq "POST" && $c->req->param('add') ) {
-        $c->stash( template => 'details/add_details.tt' );
 
-    }
+    $c->stash( template => 'details/add_details.tt' );
 
-    elsif ( $c->req->param('show') ) {
-        $c->stash( template => 'display/display_form.tt' );
-    }
+}
 
-    elsif ( $c->req->param('display_all') ) {
-        $c->visit('display_data');
-    }
+=item display_individual_data
+
+Params : NONE
+
+Returns : NONE
+
+Desc : display_individual_data is to display the  search form,in that student can search according to their firstname
+
+=cut
+
+sub display_individual_data : Local {
+    my ( $self, $c ) = @_;
+    $c->stash( template => 'display/display_form.tt' );
+}
+
+=item display_all_data
+
+Params : NONE
+
+Returns : NONE
+
+Desc : display_all_data is to display all the details of student
+
+=cut
+
+sub display_all_data : Local {
+
+    my ( $self, $c ) = @_;
+    $c->visit('display_data');
 }
 
 =item add_data
@@ -84,7 +98,6 @@ Desc : add_data stores form details which is entered by user and store into Stud
 
 sub add_data : Local {
     my ( $self, $c ) = @_;
-    my $save_or_cancel;
 
     #getting all information from the form
     my $first       = $c->req->param('first_name');
@@ -124,16 +137,25 @@ sub add_data : Local {
 
             $c->log->debug("Student Data Successfully Saved");
         }
-        $save_or_cancel = 1;
 
-        $c->visit( 'index', [$save_or_cancel] );
+        $c->visit('index');
     }
+}
 
-    elsif ( $c->req->method() eq "POST" && $c->req->param('cancel') ) {
-        $save_or_cancel = 2;
-        $c->visit( 'index', [$save_or_cancel] );
-        $c->log->debug("Error. Your Data is not Saved");
-    }
+=item cancel_data
+
+Params : NONE
+
+Returns : NONE
+
+Desc : cancel_data is to cancel the form of student details
+
+=cut
+
+sub cancel_data : Local {
+    my ( $self, $c ) = @_;
+    $c->visit('index');
+    $c->log->debug("Error. Your Data is not Saved");
 }
 
 =item display_data
@@ -147,8 +169,8 @@ Desc : display_data is to get values from user and search into student database 
 =cut
 
 sub display_data : Local {
-    my ( $self, $c,$first_name ) = @_;
-    my $first = $first_name|$c->req->param('first_name');
+    my ( $self, $c, $first_name ) = @_;
+    my $first = $first_name | $c->req->param('first_name');
     my $rs    = $c->model('StudentDB::Student');
     my $student_result;
     if ($first) {
@@ -157,7 +179,7 @@ sub display_data : Local {
                 first_name => "$first"
             }
         );
-      $c->stash(first_name => "$first");
+        $c->stash( first_name => "$first" );
     }
     else {
         $student_result = $rs->search();
@@ -197,8 +219,9 @@ sub delete_row : Local {
     my ( $self, $c ) = @_;
     my $delete_student = $c->model('StudentDB::Student')
       ->find( { student_id => $c->req->param('delete') } )->delete();
-    my $first_name=$c->req->param('first_name');
-    $c->response->redirect($c->uri_for("/manage/display_data",$first_name));
+    my $first_name = $c->req->param('first_name');
+    $c->response->redirect(
+        $c->uri_for( "/manage/display_data", $first_name ) );
 
 }
 

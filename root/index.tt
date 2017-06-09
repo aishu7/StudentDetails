@@ -1,12 +1,37 @@
-<form method="POST" action="manage_data">
-    <input type="submit" name="add" value="ADD STUDENT" /> <br>
-    <input type="submit" name="show" value="SHOW STUDENT" /> <br>
-    <input type="submit" name="display_all" value="DISPLAY ALL STUDENT" /> <br>
-</form>
+<!DOCTYPE html>
+<html>
+<body>
 
-[% IF button_click == "save" %] 
-Your data is added 
+<button onclick="addDetails()">ADD STUDENT</button>
+<button onclick="displayDetails()">SHOW STUDENT</button>
+<button onclick="displayAlldetails()">DISPLAY ALL STUDENT</button>
+<script>
 
-[% ELSIF button_click == "cancel" %] 
-Your data is not added 
-[% END %]
+function addDetails() {
+  
+         document.location = 'student_form';
+}
+
+function displayDetails() {
+
+         document.location = 'display_individual_data';
+}
+
+
+function displayAlldetails() {
+
+         document.location = 'display_all_data';
+}
+
+
+
+
+</script>
+
+
+
+
+
+</body>
+</html>
+

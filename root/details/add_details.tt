@@ -22,7 +22,14 @@
 <input type ="hidden" value="[% result.id %]" name="id"/>
     <input type="submit" name="save" value="Save" />
 
-
-    <input type="submit" name="cancel" formnovalidate="cancel" value="Cancel" /><br><br>
-
 </form>
+
+    <button onclick = "cancelData()" > Cancel </button>
+
+<script>
+ function cancelData()
+  {
+   document.location="cancel_data";
+  }
+</script>
+
